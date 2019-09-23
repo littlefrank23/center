@@ -1,5 +1,7 @@
 package com.mycom.center.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycom.center.entry.User;
 import com.mycom.center.service.IUserService;
 import org.slf4j.Logger;
@@ -29,6 +31,13 @@ public class UserController {
     public String getUserById(@PathVariable Integer id){
         User user = userServiceImpl.getUserById(id);
         logger.info(user.toString());
-        return user.toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
