@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName: UserServiceImpl
  * @Desscription: TODO
@@ -26,5 +28,15 @@ public class UserServiceImpl implements IUserService {
     public User getUserById(Integer id){
         User user = userRepository.getOne(id);
         return user;
+    }
+
+    @Override
+    public User getUserByNameAndPwd(String userName, String pwd){
+        List<User> userList = null;
+        userList = userRepository.findByUserNameAndPassword(userName,pwd);
+        if (userList != null && !userList.isEmpty()){
+            return userList.get(0);
+        }
+        return null;
     }
 }

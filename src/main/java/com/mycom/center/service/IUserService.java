@@ -2,6 +2,8 @@ package com.mycom.center.service;
 
 import com.mycom.center.entry.User;
 
+import java.util.List;
+
 /**
  * @ClassName: IUserService
  * @Desscription: TODO
@@ -10,4 +12,6 @@ import com.mycom.center.entry.User;
  **/
 public interface IUserService {
     public User getUserById(Integer id);
+
+    public User getUserByNameAndPwd(String userName, String pwd);
 }
