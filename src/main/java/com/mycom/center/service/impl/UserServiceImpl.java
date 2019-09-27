@@ -6,6 +6,7 @@ import com.mycom.center.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * @Author: Teng
  * @Date: 2019/9/23 15:36
  **/
+
 @Service("userServiceImpl")
 public class UserServiceImpl implements IUserService {
 
@@ -24,12 +26,14 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public User getUserById(Integer id){
         User user = userRepository.getOne(id);
         return user;
     }
 
+    @Cacheable(value = "user", key = "#userName")
     @Override
     public User getUserByNameAndPwd(String userName, String pwd){
         List<User> userList = null;
